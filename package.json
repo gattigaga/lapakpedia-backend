@@ -1,0 +1,43 @@
+{
+  "name": "lapakpedia-backend",
+  "version": "1.0.0",
+  "description": "Backend of LapakPedia",
+  "main": "index.js",
+  "author": "Gattigaga Hayyuta Dewa",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "commander": "^2.15.1",
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.8",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.4.2",
+    "nodemon": "^1.17.1",
+    "prettier": "^1.11.1",
+    "superagent": "^3.8.2",
+    "supertest": "^3.0.0"
+  }
+}
