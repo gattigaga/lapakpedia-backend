@@ -24,6 +24,14 @@ const Purchase = new mongoose.Schema(
     totalPrices: {
       type: Number,
       required: true
+    },
+    rate: {
+      type: Number,
+      required: true
+    },
+    review: {
+      type: String,
+      required: true
     }
   },
   {
