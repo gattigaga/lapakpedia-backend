@@ -12,11 +12,6 @@ const Order = new mongoose.Schema(
       ref: "User",
       required: true
     },
-    products: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Product",
-      required: true
-    },
     bankName: {
       type: String,
       required: true
@@ -40,6 +35,11 @@ const Order = new mongoose.Schema(
     phone: {
       type: String,
       required: true
+    },
+    status: {
+      type: String,
+      enum: ["WAITING", "PROCESSED", "SENT", "ARRIVED"],
+      default: "WAITING"
     }
   },
   {
