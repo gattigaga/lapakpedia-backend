@@ -3,6 +3,7 @@ const multer = require("multer");
 
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
+const favouriteController = require("../controllers/favouriteController");
 
 const uploadUserPhoto = multer({ dest: "public/images/users" });
 
@@ -35,6 +36,21 @@ const routes = app => {
     .get(userController.read)
     .put(uploadUserPhoto.single("photo"), userController.update)
     .delete(userController.delete);
+
+  // Favourite API
+
+  app
+    .route("/favourites")
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(favouriteController.index)
+    .post(favouriteController.create);
+
+  app
+    .route("/favourites/:id")
+    .delete(
+      passport.authenticate("jwt", { session: false }),
+      favouriteController.delete
+    );
 };
 
 module.exports = routes;
