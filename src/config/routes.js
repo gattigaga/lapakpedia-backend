@@ -30,7 +30,7 @@ const routes = app => {
     .post(uploadUserPhoto.single("photo"), userController.create);
 
   app
-    .route("/users/:userID")
+    .route("/users/:id")
     .all(passport.authenticate("jwt", { session: false }))
     .get(userController.read)
     .put(uploadUserPhoto.single("photo"), userController.update)

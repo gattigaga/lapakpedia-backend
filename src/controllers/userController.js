@@ -37,7 +37,7 @@ exports.read = async (req, res) => {
   const { params } = req;
 
   try {
-    const user = await User.findById(params.userID);
+    const user = await User.findById(params.id);
 
     if (!user) {
       return res.status(404).send({
@@ -88,7 +88,7 @@ exports.update = async (req, res) => {
   }
 
   try {
-    const user = await User.findOneAndUpdate({ _id: params.userID }, payload, {
+    const user = await User.findOneAndUpdate({ _id: params.id }, payload, {
       new: true
     });
 
@@ -116,7 +116,7 @@ exports.delete = async (req, res) => {
   const { params } = req;
 
   try {
-    const user = await User.remove({ _id: params.userID });
+    const user = await User.remove({ _id: params.id });
 
     if (!user) {
       return res.status(404).send({
