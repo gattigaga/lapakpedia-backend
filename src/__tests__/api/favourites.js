@@ -85,7 +85,7 @@ describe("POST /favourites", () => {
   });
 });
 
-describe("DELETE /favourites", () => {
+describe("DELETE /favourites/:id", () => {
   it("should delete a favourite", async () => {
     const response = await login(app);
     const { token } = response.body;
