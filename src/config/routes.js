@@ -5,6 +5,7 @@ const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
 const favouriteController = require("../controllers/favouriteController");
 const orderController = require("../controllers/orderController");
+const purchaseController = require("../controllers/purchaseController");
 
 const uploadUserPhoto = multer({ dest: "public/images/users" });
 
@@ -67,6 +68,21 @@ const routes = app => {
     .get(orderController.read)
     .put(orderController.update)
     .delete(orderController.delete);
+
+  // Purchase API
+
+  app
+    .route("/purchases")
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(purchaseController.index)
+    .post(purchaseController.create);
+
+  app
+    .route("/purchases/:id")
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(purchaseController.read)
+    .put(purchaseController.update)
+    .delete(purchaseController.delete);
 };
 
 module.exports = routes;
