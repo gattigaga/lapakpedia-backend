@@ -6,8 +6,10 @@ const userController = require("../controllers/userController");
 const favouriteController = require("../controllers/favouriteController");
 const orderController = require("../controllers/orderController");
 const purchaseController = require("../controllers/purchaseController");
+const productController = require("../controllers/productController");
 
 const uploadUserPhoto = multer({ dest: "public/images/users" });
+const uploadProductPhoto = multer({ dest: "public/images/products" });
 
 /**
  * Route list
@@ -83,6 +85,23 @@ const routes = app => {
     .get(purchaseController.read)
     .put(purchaseController.update)
     .delete(purchaseController.delete);
+
+  // Product API
+
+  app
+    .route("/products")
+    .get(
+      passport.authenticate("jwt", { session: false }),
+      productController.index
+    )
+    .post(uploadProductPhoto.single("photo"), productController.create);
+
+  app
+    .route("/products/:id")
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(productController.read)
+    .put(uploadProductPhoto.single("photo"), productController.update)
+    .delete(productController.delete);
 };
 
 module.exports = routes;
