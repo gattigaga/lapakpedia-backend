@@ -26,12 +26,10 @@ const Purchase = new mongoose.Schema(
       required: true
     },
     rate: {
-      type: Number,
-      required: true
+      type: Number
     },
     review: {
-      type: String,
-      required: true
+      type: String
     }
   },
   {
