@@ -12,14 +12,16 @@ exports.index = async (req, res) => {
     sortBy = "asc",
     skip = 0,
     take = User.count(),
-    role = /(MEMBER|ADMIN)/
+    role
   } = req.query;
+  const query = {
+    name: new RegExp(name, "i")
+  };
+
+  if (role) query.role = role.toUpperCase();
 
   try {
-    const users = await User.find({
-      name: new RegExp(name, "i"),
-      role: typeof role === "string" ? role.toUpperCase() : role
-    })
+    const users = await User.find(query)
       .sort(`${sortBy === "desc" ? "-" : ""}${sortable}`)
       .skip(Number(skip))
       .limit(Number(take))
