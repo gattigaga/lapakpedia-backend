@@ -3,20 +3,27 @@ const User = require("../models/user");
 
 module.exports = {
   async up() {
-    const users = [...Array(5)].map((user, index) => {
-      const isFirst = index === 0;
-      const name = isFirst ? "Admin" : faker.name.findName();
-      const username = isFirst ? "admin" : `member${index}`;
-      const role = isFirst ? "ADMIN" : "MEMBER";
+    const createUser = (role, index) => {
+      const username = `${role.toLowerCase()}${index || ""}`;
 
       return {
-        name,
+        name:
+          role === "SELLER"
+            ? faker.company.companyName()
+            : faker.name.findName(),
         username,
         email: `${username}@lapakpedia.com`,
         password: username,
         role
       };
-    });
+    };
+
+    const admin = createUser("ADMIN");
+    const member = createUser("MEMBER");
+    const sellers = [...Array(3)].map((seller, index) =>
+      createUser("SELLER", index)
+    );
+    const users = [admin, member, ...sellers];
 
     try {
       await User.create(users);
