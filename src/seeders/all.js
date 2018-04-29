@@ -1,7 +1,8 @@
 const users = require("./users");
 const categories = require("./categories");
+const products = require("./products");
 
-const seeders = [users, categories];
+const seeders = [users, categories, products];
 
 module.exports = {
   up() {
