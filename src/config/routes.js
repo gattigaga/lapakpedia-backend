@@ -7,6 +7,7 @@ const favouriteController = require("../controllers/favouriteController");
 const orderController = require("../controllers/orderController");
 const purchaseController = require("../controllers/purchaseController");
 const productController = require("../controllers/productController");
+const categoryController = require("../controllers/categoryController");
 
 const uploadUserPhoto = multer({ dest: "public/images/users" });
 const uploadProductPhoto = multer({ dest: "public/images/products" });
@@ -102,6 +103,21 @@ const routes = app => {
     .get(productController.read)
     .put(uploadProductPhoto.single("photo"), productController.update)
     .delete(productController.delete);
+
+  // Category API
+
+  app
+    .route("/categories")
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(categoryController.index)
+    .post(categoryController.create);
+
+  app
+    .route("/categories/:id")
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(categoryController.read)
+    .put(categoryController.update)
+    .delete(categoryController.delete);
 };
 
 module.exports = routes;
