@@ -198,11 +198,14 @@ describe("POST /products", () => {
   });
 
   it("should create new product", async () => {
+    const response = await login(app);
+    const { token } = response.body;
     const sellerID = String(mongoose.Types.ObjectId());
     const categoryID = String(mongoose.Types.ObjectId());
 
     await request(app)
       .post("/products")
+      .set("Authorization", `Bearer ${token}`)
       .field("name", "PlayStation 4")
       .field("seller", sellerID)
       .field("category", categoryID)

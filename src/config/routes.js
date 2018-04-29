@@ -91,10 +91,8 @@ const routes = app => {
 
   app
     .route("/products")
-    .get(
-      passport.authenticate("jwt", { session: false }),
-      productController.index
-    )
+    .all(passport.authenticate("jwt", { session: false }))
+    .get(productController.index)
     .post(uploadProductPhoto.single("photo"), productController.create);
 
   app
