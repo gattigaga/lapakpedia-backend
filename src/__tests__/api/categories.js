@@ -19,7 +19,7 @@ afterAll(() => {
   return User.remove({});
 });
 
-describe("GET /purchases", () => {
+describe("GET /categories", () => {
   beforeAll(() => {
     return Category.create(
       { name: "Smartphone" },
