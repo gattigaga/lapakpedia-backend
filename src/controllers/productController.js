@@ -7,7 +7,6 @@ const Product = require("../models/product");
 
 exports.index = async (req, res) => {
   const {
-    sellerID,
     categoryID,
     name = "",
     sortable = "createdAt",
@@ -20,7 +19,6 @@ exports.index = async (req, res) => {
     name: new RegExp(name, "i")
   };
 
-  if (sellerID) query.seller = sellerID;
   if (categoryID) query.category = categoryID;
 
   if (price) {

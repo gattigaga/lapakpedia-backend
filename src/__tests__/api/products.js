@@ -25,14 +25,12 @@ afterAll(() => {
 });
 
 describe("GET /products", () => {
-  const sellerID = mongoose.Types.ObjectId();
   const categoryID = mongoose.Types.ObjectId();
 
   beforeAll(() => {
     return Product.create(
       {
         name: "IPhone X",
-        seller: sellerID,
         category: mongoose.Types.ObjectId(),
         price: 25000,
         stock: 1,
@@ -41,7 +39,6 @@ describe("GET /products", () => {
       },
       {
         name: "PlayStation 4",
-        seller: sellerID,
         category: categoryID,
         price: 30000,
         stock: 2,
@@ -50,7 +47,6 @@ describe("GET /products", () => {
       },
       {
         name: "Nintendo Switch",
-        seller: mongoose.Types.ObjectId(),
         category: categoryID,
         price: 35000,
         stock: 3,
@@ -87,19 +83,6 @@ describe("GET /products", () => {
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(1);
-      });
-  });
-
-  it("should get products by seller", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
-    await request(app)
-      .get(`/products?sellerID=${sellerID}`)
-      .set("Authorization", `Bearer ${token}`)
-      .expect(200)
-      .expect(res => {
-        expect(res.body.length).toEqual(2);
       });
   });
 
@@ -200,14 +183,12 @@ describe("POST /products", () => {
   it("should create new product", async () => {
     const response = await login(app);
     const { token } = response.body;
-    const sellerID = String(mongoose.Types.ObjectId());
     const categoryID = String(mongoose.Types.ObjectId());
 
     await request(app)
       .post("/products")
       .set("Authorization", `Bearer ${token}`)
       .field("name", "PlayStation 4")
-      .field("seller", sellerID)
       .field("category", categoryID)
       .field("price", 30000)
       .field("stock", 2)
@@ -232,7 +213,6 @@ describe("GET /products/:id", () => {
 
     const product = await Product.create({
       name: "IPhone X",
-      seller: mongoose.Types.ObjectId(),
       category: mongoose.Types.ObjectId(),
       price: 25000,
       stock: 5,
@@ -266,7 +246,6 @@ describe("PUT /products/:id", () => {
   beforeAll(async () => {
     product = await Product.create({
       name: "IPhone X",
-      seller: mongoose.Types.ObjectId(),
       category: mongoose.Types.ObjectId(),
       price: 25000,
       stock: 5,
@@ -334,7 +313,6 @@ describe("DELETE /products/:id", () => {
 
     const product = await Product.create({
       name: "IPhone X",
-      seller: mongoose.Types.ObjectId(),
       category: mongoose.Types.ObjectId(),
       price: 25000,
       stock: 5,
