@@ -7,10 +7,7 @@ module.exports = {
       const username = `${role.toLowerCase()}${index || ""}`;
 
       return {
-        name:
-          role === "SELLER"
-            ? faker.company.companyName()
-            : faker.name.findName(),
+        name: faker.name.findName(),
         username,
         email: `${username}@lapakpedia.com`,
         password: username,
@@ -20,10 +17,7 @@ module.exports = {
 
     const admin = createUser("ADMIN");
     const member = createUser("MEMBER");
-    const sellers = [...Array(3)].map((seller, index) =>
-      createUser("SELLER", index)
-    );
-    const users = [admin, member, ...sellers];
+    const users = [admin, member];
 
     try {
       await User.create(users);
