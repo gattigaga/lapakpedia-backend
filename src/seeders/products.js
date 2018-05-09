@@ -11,7 +11,7 @@ module.exports = {
         category: categories[Math.floor(Math.random() * categories.length)]._id,
         price: Number(faker.commerce.price(10, 2000)),
         stock: 5,
-        photo: "blank-photo.png",
+        photo: "default.png",
         description: faker.lorem.text()
       }));
 
