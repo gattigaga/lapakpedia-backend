@@ -52,12 +52,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get all purchases", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/purchases")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(3);
@@ -65,12 +61,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get purchases by order", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/purchases?orderID=${orderID}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -78,12 +70,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get purchases by product", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/purchases?productID=${productID}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -91,12 +79,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get purchases by offset", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/purchases?skip=1`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -104,12 +88,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get purchases by limit", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/purchases?take=1`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(1);
@@ -117,12 +97,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get sorted purchases in ascending", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/purchases?sortable=totalPrices`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         const total = res.body.length;
@@ -135,12 +111,8 @@ describe("GET /purchases", () => {
   });
 
   it("should get sorted purchases in descending", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/purchases?sortable=totalPrices&sortBy=desc`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         const total = res.body.length;

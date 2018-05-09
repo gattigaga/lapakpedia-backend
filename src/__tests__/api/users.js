@@ -235,14 +235,10 @@ describe("POST /users", () => {
 
 describe("GET /users/:userID", () => {
   it("should get an user successfully", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     const user = await User.findOne({ username: "member3" });
 
     await request(app)
       .get(`/users/${user._id}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.name).toEqual("Member3");
@@ -250,12 +246,8 @@ describe("GET /users/:userID", () => {
   });
 
   it("should failed to get an user", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/users/wR0n6")
-      .set("Authorization", `Bearer ${token}`)
       .expect(404);
   });
 });

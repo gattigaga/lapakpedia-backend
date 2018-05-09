@@ -33,12 +33,8 @@ describe("GET /categories", () => {
   });
 
   it("should get all categories", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/categories")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(3);

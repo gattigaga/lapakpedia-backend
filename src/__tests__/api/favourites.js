@@ -39,12 +39,8 @@ describe("GET /favourites", () => {
   });
 
   it("should get all favourites", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/favourites")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(3);
@@ -52,15 +48,12 @@ describe("GET /favourites", () => {
   });
 
   it("should get favourites by product ID", async () => {
-    const response = await login(app);
-    const { token } = response.body;
     const product = mongoose.Types.ObjectId();
 
     await Favourite.create(createFavourite(product), createFavourite(product));
 
     await request(app)
       .get(`/favourites?productID=${product}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);

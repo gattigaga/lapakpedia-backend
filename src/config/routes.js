@@ -37,18 +37,26 @@ const routes = app => {
 
   app
     .route("/users/:id")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(userController.read)
-    .put(uploadUserPhoto.single("photo"), userController.update)
-    .delete(userController.delete);
+    .put(
+      passport.authenticate("jwt", { session: false }),
+      uploadUserPhoto.single("photo"),
+      userController.update
+    )
+    .delete(
+      passport.authenticate("jwt", { session: false }),
+      userController.delete
+    );
 
   // Favourite API
 
   app
     .route("/favourites")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(favouriteController.index)
-    .post(favouriteController.create);
+    .post(
+      passport.authenticate("jwt", { session: false }),
+      favouriteController.create
+    );
 
   app
     .route("/favourites/:id")
@@ -76,9 +84,11 @@ const routes = app => {
 
   app
     .route("/purchases")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(purchaseController.index)
-    .post(purchaseController.create);
+    .post(
+      passport.authenticate("jwt", { session: false }),
+      purchaseController.create
+    );
 
   app
     .route("/purchases/:id")
@@ -91,24 +101,35 @@ const routes = app => {
 
   app
     .route("/products")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(productController.index)
-    .post(uploadProductPhoto.single("photo"), productController.create);
+    .post(
+      passport.authenticate("jwt", { session: false }),
+      uploadProductPhoto.single("photo"),
+      productController.create
+    );
 
   app
     .route("/products/:id")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(productController.read)
-    .put(uploadProductPhoto.single("photo"), productController.update)
-    .delete(productController.delete);
+    .put(
+      passport.authenticate("jwt", { session: false }),
+      uploadProductPhoto.single("photo"),
+      productController.update
+    )
+    .delete(
+      passport.authenticate("jwt", { session: false }),
+      productController.delete
+    );
 
   // Category API
 
   app
     .route("/categories")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(categoryController.index)
-    .post(categoryController.create);
+    .post(
+      passport.authenticate("jwt", { session: false }),
+      categoryController.create
+    );
 
   app
     .route("/categories/:id")

@@ -61,12 +61,8 @@ describe("GET /products", () => {
   });
 
   it("should get all products", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(3);
@@ -74,12 +70,8 @@ describe("GET /products", () => {
   });
 
   it("should get products by name", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products?name=IPhone")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(1);
@@ -87,12 +79,8 @@ describe("GET /products", () => {
   });
 
   it("should get products by category", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get(`/products?categoryID=${categoryID}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -100,12 +88,8 @@ describe("GET /products", () => {
   });
 
   it("should get products by offset", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products?skip=1")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -113,12 +97,9 @@ describe("GET /products", () => {
   });
 
   it("should get products by limit", async () => {
-    const response = await login(app);
-    const { token } = response.body;
 
     await request(app)
       .get("/products?take=2")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -126,12 +107,8 @@ describe("GET /products", () => {
   });
 
   it("should get sorted products in ascending", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products?sortable=name")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         const total = res.body.length;
@@ -144,12 +121,8 @@ describe("GET /products", () => {
   });
 
   it("should get sorted products in descending", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products?sortable=name&sortBy=desc")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         const total = res.body.length;
@@ -162,12 +135,8 @@ describe("GET /products", () => {
   });
 
   it("should get products inside price range", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products?price=28000,36000")
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.length).toEqual(2);
@@ -208,9 +177,6 @@ describe("GET /products/:id", () => {
   });
 
   it("should get a product successfully", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     const product = await Product.create({
       name: "IPhone X",
       category: mongoose.Types.ObjectId(),
@@ -222,7 +188,6 @@ describe("GET /products/:id", () => {
 
     await request(app)
       .get(`/products/${product._id}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.name).toEqual(product.name);
@@ -230,12 +195,8 @@ describe("GET /products/:id", () => {
   });
 
   it("should failed to get a product", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/products/wR0n6")
-      .set("Authorization", `Bearer ${token}`)
       .expect(404);
   });
 });
