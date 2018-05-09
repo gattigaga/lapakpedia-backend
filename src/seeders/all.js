@@ -1,14 +1,19 @@
 const users = require("./users");
 const categories = require("./categories");
 const products = require("./products");
+const favourites = require("./favourites");
 
-const seeders = [users, categories, products];
+const seeders = [users, categories, products, favourites];
 
 module.exports = {
-  up() {
-    seeders.forEach(seeder => seeder.up());
+  async up() {
+    for (const seeder of seeders) {
+      await seeder.up();
+    }
   },
-  down() {
-    seeders.forEach(seeder => seeder.down());
+  async down() {
+    for (const seeder of seeders) {
+      await seeder.down();
+    }
   }
 };
