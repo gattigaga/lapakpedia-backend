@@ -5,18 +5,35 @@ const Favourite = require("../models/favourite");
 module.exports = {
   async up() {
     try {
-      const member = await User.findOne({ role: "MEMBER" });
+      const members = await User.find({ role: "MEMBER" });
       const products = await Product.find()
         .skip(5)
-        .limit(4)
+        .limit(6)
         .exec();
 
-      const createFavourite = product => ({
-        member: member._id,
-        product: product._id
+      let favourites = [];
+
+      // First member likes all products
+      products.forEach((product, productIndex) => {
+        favourites.push({
+          member: members[0]._id,
+          product: product._id
+        });
       });
 
-      const favourites = products.map(createFavourite);
+      // All member except first member like 3 products
+      members.forEach((member, memberIndex) => {
+        if (memberIndex === 0) return;
+
+        products.forEach((product, productIndex) => {
+          if (productIndex > 3) return;
+
+          favourites.push({
+            member: member._id,
+            product: product._id
+          });
+        });
+      });
 
       await Favourite.create(favourites);
       console.log("Favourites successfully seeded");

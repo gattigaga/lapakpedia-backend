@@ -16,8 +16,10 @@ module.exports = {
     };
 
     const admin = createUser("ADMIN");
-    const member = createUser("MEMBER");
-    const users = [admin, member];
+    const members = [...Array(5)].map((item, index) =>
+      createUser("MEMBER", index)
+    );
+    const users = [admin, ...members];
 
     try {
       await User.create(users);
