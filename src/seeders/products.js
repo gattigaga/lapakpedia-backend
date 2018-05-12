@@ -12,7 +12,7 @@ module.exports = {
         price: Number(faker.commerce.price(10, 2000)),
         stock: 5,
         photo: "default.png",
-        description: faker.lorem.text()
+        description: faker.lorem.text(320)
       }));
 
       await Product.create(products);
