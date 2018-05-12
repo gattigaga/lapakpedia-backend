@@ -133,10 +133,15 @@ const routes = app => {
 
   app
     .route("/categories/:id")
-    .all(passport.authenticate("jwt", { session: false }))
     .get(categoryController.read)
-    .put(categoryController.update)
-    .delete(categoryController.delete);
+    .put(
+      passport.authenticate("jwt", { session: false }),
+      categoryController.update
+    )
+    .delete(
+      passport.authenticate("jwt", { session: false }),
+      categoryController.delete
+    );
 };
 
 module.exports = routes;

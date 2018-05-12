@@ -67,16 +67,12 @@ describe("GET /categories/:id", () => {
   });
 
   it("should get a category", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     const category = await Category.create({
       name: "Smartphone"
     });
 
     await request(app)
       .get(`/categories/${category._id}`)
-      .set("Authorization", `Bearer ${token}`)
       .expect(200)
       .expect(res => {
         expect(res.body.name).toEqual(category.name);
@@ -84,12 +80,8 @@ describe("GET /categories/:id", () => {
   });
 
   it("should failed to get a category", async () => {
-    const response = await login(app);
-    const { token } = response.body;
-
     await request(app)
       .get("/categories/wR0n6")
-      .set("Authorization", `Bearer ${token}`)
       .expect(404);
   });
 });
